@@ -13,9 +13,12 @@ pygame.init()
 screen_info = pygame.display.Info()
 
 size = (width, height) = (screen_info.current_w, screen_info.current_h)
+font = pygame.font.SysFont(None,70)
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 color = (255,255,179)
+
+
 sprite_list = pygame.sprite.Group()
 platforms = pygame.sprite.Group()
 player = ''
@@ -52,14 +55,23 @@ def main():
                     pygame.display.set_mode(size, FULLSCREEN)
                 if event.key == K_ESCAPE:
                     pygame.display.set_mode(size)
+                if game_over and event.key == K_r:
+                    player.kill()
+                    init(p1_actions)
+                    game_over = False
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
             player.left()
         if keys[pygame.K_RIGHT]:
             player.right()
+        if player.update(platforms):
+            game_over = True
+        text = font.render('Score = {}'. format(player.progress), True, (255,0,0))
+        text_rect = text.get_rect()
         screen.fill(color)
         platforms.draw(screen)
         sprite_list.draw(screen)
+        screen.blit(text, text_rect)
         pygame.display.flip()
 
 

@@ -15,4 +15,4 @@ class Platforms(pygame.sprite.Sprite):
         self.rect.top += change
         if self.rect.top > screen_info.current_h:
             self.rect.top = -50
-            self.rect.left = random.randint(5, (screen_info.current_w - 50) // 10) * 10
+            self.rect.left = random.randint(5, (screen_info.current_w-50)//10)*10
